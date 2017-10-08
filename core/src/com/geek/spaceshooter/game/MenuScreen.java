@@ -19,6 +19,8 @@ public class MenuScreen implements Screen {
     private TextureRegion texExit;
     private Rectangle rectStart;
     private Rectangle rectExit;
+    private Rectangle gameOverRectStart;
+    private Rectangle gameOverRectExit;
     private MyInputProcessor mip;
     private Music music;
     private TextureRegion gameOverTexture;
@@ -43,6 +45,8 @@ public class MenuScreen implements Screen {
         texStart = atlas.findRegion("btPlay");
         rectStart = new Rectangle(256, 232, texStart.getRegionWidth(), texStart.getRegionHeight());
         rectExit = new Rectangle(1280 - 512, 232, texExit.getRegionWidth(), texExit.getRegionHeight());
+        gameOverRectStart = new Rectangle(256, 82, texStart.getRegionWidth(), texStart.getRegionHeight());
+        gameOverRectExit = new Rectangle(1280 - 512, 82, texExit.getRegionWidth(), texExit.getRegionHeight());
         gameOverTexture = atlas.findRegion("gameOver");
         mip = (MyInputProcessor) Gdx.input.getInputProcessor();
         music = Assets.getInstance().assetManager.get("menu_music.mp3", Music.class);
@@ -60,8 +64,8 @@ public class MenuScreen implements Screen {
         batch.begin();
         background.render(batch);
         if (gameOver) {
-            batch.draw(texStart, rectStart.x, rectStart.y - 150);
-            batch.draw(texExit, rectExit.x, rectExit.y - 150);
+            batch.draw(texStart, gameOverRectStart.x, gameOverRectStart.y);
+            batch.draw(texExit, gameOverRectExit.x, gameOverRectExit.y);
             batch.setColor(1, 1, 1, 0.3f);
             batch.draw(gameOverTexture, rectStart.x + 128, rectStart.y + 128);
             batch.setColor(1, 1, 1, 1);
@@ -74,11 +78,20 @@ public class MenuScreen implements Screen {
 
     public void update(float dt) {
         background.update(dt, emptyVelocity);
-        if (mip.isTouchedInArea(rectStart) != -1) {
-            game.setScreen(game.getGameScreen());
-        }
-        if (mip.isTouchedInArea(rectExit) != -1) {
-            Gdx.app.exit();
+        if (gameOver) {
+            if (mip.isTouchedInArea(gameOverRectStart) != -1) {
+                game.setScreen(game.getGameScreen());
+            }
+            if (mip.isTouchedInArea(gameOverRectExit) != -1) {
+                Gdx.app.exit();
+            }
+        } else {
+            if (mip.isTouchedInArea(rectStart) != -1) {
+                game.setScreen(game.getGameScreen());
+            }
+            if (mip.isTouchedInArea(rectExit) != -1) {
+                Gdx.app.exit();
+            }
         }
     }
 
@@ -100,6 +113,7 @@ public class MenuScreen implements Screen {
     @Override
     public void hide() {
         Assets.getInstance().clear();
+        gameOver = false;
     }
 
     @Override
