@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 public class BotEmitter extends ObjectPool<Bot> {
-    private GameScreen game;
+    private GameScreen gameScreen;
     private TextureRegion botTexture;
     private float generationTime;
     private float innerTimer;
@@ -21,12 +21,12 @@ public class BotEmitter extends ObjectPool<Bot> {
 
     @Override
     protected Bot newObject() {
-        return new Bot(game, botTexture);
+        return new Bot(gameScreen, botTexture);
     }
 
-    public BotEmitter(GameScreen game, TextureRegion botTexture, int size, float generationTime) {
+    public BotEmitter(GameScreen gameScreen, TextureRegion botTexture, int size, float generationTime) {
         super();
-        this.game = game;
+        this.gameScreen = gameScreen;
         this.botTexture = botTexture;
         for (int i = 0; i < size; i++) {
             freeList.add(newObject());
@@ -68,6 +68,8 @@ public class BotEmitter extends ObjectPool<Bot> {
 
     public void setup() {
         Bot b = getActiveElement();
-        b.activate(routes.get((int)(Math.random() * routes.size())));
+        LevelInfo levelInfo = gameScreen.getCurrentLevelInfo();
+        int hpMax = MathUtils.random(levelInfo.getBotHpMin(), levelInfo.getBotHpMax());
+        b.activate(routes.get((int)(Math.random() * routes.size())), levelInfo.getBotFireRate(), hpMax);
     }
 }

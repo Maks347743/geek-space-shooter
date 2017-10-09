@@ -67,7 +67,6 @@ public class Bot extends Ship implements Poolable {
         if (position.x < -100) {
             deactivate();
         }
-        //velocity.set(-120, 0);
         velocity.set(route.getMyVelocity((int)position.x));
         position.mulAdd(velocity, dt);
         hitArea.setPosition(position);
@@ -79,11 +78,11 @@ public class Bot extends Ship implements Poolable {
         deactivate();
     }
 
-    public void activate(Route route) {
+    public void activate(Route route, float fireRate, int hpMax) {
         position.set(route.getInitialPosition());
-        fireRate = 1.0f;
+        this.fireRate = fireRate;
         hitArea.setRadius(28);
-        hpMax = 15;
+        this.hpMax = hpMax;
         active = true;
         hp = hpMax;
         this.route = route;

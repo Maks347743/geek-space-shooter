@@ -1,9 +1,5 @@
 package com.geek.spaceshooter.game;
 
-/**
- * Created by FlameXander on 04.10.2017.
- */
-
 public class LevelInfo {
     private int level;
     private float asteroidGenerationTime;
@@ -11,6 +7,9 @@ public class LevelInfo {
     private int asteroidHpMax;
     private float asteroidSpeedMin;
     private float asteroidSpeedMax;
+    private float botFireRate;
+    private int botHpMin;
+    private int botHpMax;
 
     public int getLevel() {
         return level;
@@ -36,12 +35,27 @@ public class LevelInfo {
         return asteroidSpeedMax;
     }
 
-    public LevelInfo(int level, float asteroidGenerationTime, int asteroidHpMin, int asteroidHpMax, float asteroidSpeedMin, float asteroidSpeedMax) {
+    public float getBotFireRate() {
+        return botFireRate;
+    }
+
+    public int getBotHpMin() {
+        return botHpMin;
+    }
+
+    public int getBotHpMax() {
+        return botHpMax;
+    }
+
+    public LevelInfo(int level, float asteroidGenerationTime, int asteroidHpMin, int asteroidHpMax, float asteroidSpeedMin, float asteroidSpeedMax, float botFireRate, int botHpMin, int botHpMax) {
         this.level = level;
         this.asteroidGenerationTime = asteroidGenerationTime;
         this.asteroidHpMin = asteroidHpMin;
         this.asteroidHpMax = asteroidHpMax;
         this.asteroidSpeedMin = asteroidSpeedMin;
         this.asteroidSpeedMax = asteroidSpeedMax;
+        this.botFireRate = botFireRate;
+        this.botHpMin = botHpMin;
+        this.botHpMax = botHpMax;
     }
 }

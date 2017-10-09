@@ -3,10 +3,6 @@ package com.geek.spaceshooter.game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-/**
- * Created by FlameXander on 27.09.2017.
- */
-
 public class PowerUpsEmitter {
     private PowerUp[] powerUps;
     private TextureRegion[][] textureRegion;
@@ -40,7 +36,7 @@ public class PowerUpsEmitter {
     }
 
     public void makePower(float x, float y) {
-        if (Math.random() < 0.2) {
+        if (Math.random() < 0.3) {
             for (int i = 0; i < powerUps.length; i++) {
                 if (!powerUps[i].isActive()) {
                     PowerUp.Type t = PowerUp.Type.values()[(int) (Math.random() * 4)];

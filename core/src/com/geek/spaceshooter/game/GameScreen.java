@@ -75,7 +75,7 @@ public class GameScreen implements Screen {
                 String[] arr = str.split("\\t");
                 LevelInfo levelInfo = new LevelInfo(Integer.parseInt(arr[0]), Float.parseFloat(arr[1]),
                         Integer.parseInt(arr[2]), Integer.parseInt(arr[3]), Float.parseFloat(arr[4])
-                        , Float.parseFloat(arr[5]));
+                        ,Float.parseFloat(arr[5]), Float.parseFloat(arr[6]), Integer.parseInt(arr[7]), Integer.parseInt(arr[8]));
                 levels.add(levelInfo);
             }
             maxLevels = levels.size();
