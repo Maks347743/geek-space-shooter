@@ -13,10 +13,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.StringBuilder;
 
-/**
- * Created by FlameXander on 20.09.2017.
- */
-
 public class Player extends Ship {
     private TextureRegion redHpRegion;
     private TextureRegion greenHpRegion;
@@ -41,6 +37,10 @@ public class Player extends Ship {
         score += amount;
     }
 
+    public int getScore() {
+        return score;
+    }
+
     public void addMoney(int amount) {
         money += amount;
     }
@@ -53,7 +53,7 @@ public class Player extends Ship {
         this.enginePower = engine;
         this.currentFire = 0.0f;
         this.fireRate = 0.1f;
-        this.hpMax = 40;
+        this.hpMax = 10;
         this.hp = this.hpMax;
         this.lives = 3;
         this.redHpRegion = new TextureRegion(textureHP, 0, 32, 224, 32);

@@ -1,14 +1,22 @@
 package com.geek.spaceshooter.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.StringBuilder;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 public class MenuScreen implements Screen {
     private SpaceGame game;
@@ -25,6 +33,9 @@ public class MenuScreen implements Screen {
     private Music music;
     private TextureRegion gameOverTexture;
     private boolean gameOver;
+    private int score;
+    private StringBuilder scoreHelper;
+    private BitmapFont fnt;
 
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
@@ -41,6 +52,7 @@ public class MenuScreen implements Screen {
         Assets.getInstance().loadAssets(ScreenType.MENU);
         TextureAtlas atlas = Assets.getInstance().mainAtlas;
         background = new Background(atlas.findRegion("star16"));
+        fnt = Assets.getInstance().assetManager.get("font.fnt");
         texExit = atlas.findRegion("btExit");
         texStart = atlas.findRegion("btPlay");
         rectStart = new Rectangle(256, 232, texStart.getRegionWidth(), texStart.getRegionHeight());
@@ -49,6 +61,7 @@ public class MenuScreen implements Screen {
         gameOverRectExit = new Rectangle(1280 - 512, 82, texExit.getRegionWidth(), texExit.getRegionHeight());
         gameOverTexture = atlas.findRegion("gameOver");
         mip = (MyInputProcessor) Gdx.input.getInputProcessor();
+        scoreHelper = new StringBuilder(50);
         music = Assets.getInstance().assetManager.get("menu_music.mp3", Music.class);
         music.setPosition(7.0f);
         music.setLooping(true);
@@ -69,15 +82,22 @@ public class MenuScreen implements Screen {
             batch.setColor(1, 1, 1, 0.3f);
             batch.draw(gameOverTexture, rectStart.x + 128, rectStart.y + 128);
             batch.setColor(1, 1, 1, 1);
+
         } else {
             batch.draw(texStart, rectStart.x, rectStart.y);
             batch.draw(texExit, rectExit.x, rectExit.y);
         }
+        renderScore(batch, fnt, 500, 50 + fnt.getLineHeight());
         batch.end();
     }
 
     public void update(float dt) {
         background.update(dt, emptyVelocity);
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            if (game.getBestScore() < game.getGameScreen().getPlayer().getScore()) {
+                game.getMenuScreen().writeScoreInfo(game.getGameScreen().getPlayer().getScore());
+            }
+        }
         if (gameOver) {
             if (mip.isTouchedInArea(gameOverRectStart) != -1) {
                 game.setScreen(game.getGameScreen());
@@ -93,6 +113,32 @@ public class MenuScreen implements Screen {
                 Gdx.app.exit();
             }
         }
+    }
+
+    public String loadScoreInfo() {
+        BufferedReader br = null;
+        String strScore = null;
+        try {
+            br = Gdx.files.local("score.csv").reader(8192);
+            strScore = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return strScore;
+    }
+
+    public void writeScoreInfo(int score) {
+        FileHandle file = Gdx.files.local("score.csv");
+        file.writeString(String.valueOf(score), false);
+    }
+
+    public void renderScore(SpriteBatch batch, BitmapFont fnt, float x, float y) {
+        if (loadScoreInfo() != null) {
+            score = Integer.parseInt(loadScoreInfo());
+        }
+        scoreHelper.setLength(0);
+        scoreHelper.append("BEST SCORE: ").append(score);
+        fnt.draw(batch, scoreHelper, x + 4, y - 4);
     }
 
     @Override

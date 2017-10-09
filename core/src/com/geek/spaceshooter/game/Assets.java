@@ -29,6 +29,7 @@ public class Assets {
     public void loadAssets(ScreenType type) {
         switch (type) {
             case MENU:
+                assetManager.load("font.fnt", BitmapFont.class);
                 assetManager.load("my.pack", TextureAtlas.class);
                 assetManager.load("menu_music.mp3", Music.class);
                 assetManager.load("bg.png", Texture.class);

@@ -25,6 +25,7 @@ public class SpaceGame extends Game {
     private MenuScreen menuScreen;
     private Viewport viewport;
     private Camera camera;
+    private int bestScore;
 
     public Camera getCamera() {
         return camera;
@@ -42,6 +43,10 @@ public class SpaceGame extends Game {
         return menuScreen;
     }
 
+    public int getBestScore() {
+        return bestScore;
+    }
+
     @Override
     public void create() {
         batch = new SpriteBatch();
@@ -53,6 +58,9 @@ public class SpaceGame extends Game {
         Gdx.input.setInputProcessor(mip);
         gameScreen = new GameScreen(this, batch);
         menuScreen = new MenuScreen(this, batch);
+        if (menuScreen.loadScoreInfo() != null) {
+            bestScore = Integer.parseInt(menuScreen.loadScoreInfo());
+        }
         setScreen(menuScreen);
     }
 

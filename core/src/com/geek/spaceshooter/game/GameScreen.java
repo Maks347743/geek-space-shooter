@@ -64,6 +64,10 @@ public class GameScreen implements Screen {
         return level;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public void loadFullGameInfo() {
         levels = new ArrayList<LevelInfo>();
         BufferedReader br = null;
@@ -230,6 +234,10 @@ public class GameScreen implements Screen {
         }
 
         if (player.getLives() < 0) {
+            if (player.getScore() > game.getBestScore()) {
+                game.getMenuScreen().writeScoreInfo(player.getScore());
+            }
+            game.getMenuScreen().loadScoreInfo();
             game.getMenuScreen().setGameOver(true);
             game.setScreen(game.getMenuScreen());
         }
