@@ -49,7 +49,7 @@ public class Bullet implements Poolable {
 
     public void update(float dt) {
         position.mulAdd(velocity, dt);
-        if(position.x > SpaceGame.SCREEN_WIDTH) {
+        if (position.x > SpaceGame.SCREEN_WIDTH || position.x < 0 || position.y < 0 || position.y > SpaceGame.SCREEN_HEIGHT) {
             deactivate();
         }
     }

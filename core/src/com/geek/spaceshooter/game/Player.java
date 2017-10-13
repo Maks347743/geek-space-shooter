@@ -53,7 +53,7 @@ public class Player extends Ship {
         this.enginePower = engine;
         this.currentFire = 0.0f;
         this.fireRate = 0.1f;
-        this.hpMax = 10;
+        this.hpMax = 40;
         this.hp = this.hpMax;
         this.lives = 3;
         this.redHpRegion = new TextureRegion(textureHP, 0, 32, 224, 32);

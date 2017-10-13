@@ -111,7 +111,7 @@ public class GameScreen implements Screen {
         loadFullGameInfo();
         level = 1;
         currentLevelTime = 0.0f;
-        timePerLevel = 10.0f;
+        timePerLevel = 60.0f;
         music.setVolume(0.8f);
         music.play();
     }
