@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.particles.ResourceData;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.StringBuilder;
@@ -98,11 +99,15 @@ public class MenuScreen implements Screen {
                 game.getMenuScreen().writeScoreInfo(game.getGameScreen().getPlayer().getScore());
             }
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
+            Assets.getInstance().clear();
+        }
         if (gameOver) {
             if (mip.isTouchedInArea(gameOverRectStart) != -1) {
                 game.setScreen(game.getGameScreen());
             }
             if (mip.isTouchedInArea(gameOverRectExit) != -1) {
+                Assets.getInstance().clear();
                 Gdx.app.exit();
             }
         } else {
@@ -110,7 +115,9 @@ public class MenuScreen implements Screen {
                 game.setScreen(game.getGameScreen());
             }
             if (mip.isTouchedInArea(rectExit) != -1) {
+                Assets.getInstance().clear();
                 Gdx.app.exit();
+
             }
         }
     }
@@ -119,8 +126,10 @@ public class MenuScreen implements Screen {
         BufferedReader br = null;
         String strScore = null;
         try {
-            br = Gdx.files.local("score.csv").reader(8192);
-            strScore = br.readLine();
+            if (Gdx.files.local("score.csv").exists()) {
+                br = Gdx.files.local("score.csv").reader(8192);
+                strScore = br.readLine();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -153,7 +162,23 @@ public class MenuScreen implements Screen {
 
     @Override
     public void resume() {
-
+        Assets.getInstance().loadAssets(ScreenType.MENU);
+        TextureAtlas atlas = Assets.getInstance().mainAtlas;
+        background = new Background(atlas.findRegion("star16"));
+        fnt = Assets.getInstance().assetManager.get("font.fnt");
+        texExit = atlas.findRegion("btExit");
+        texStart = atlas.findRegion("btPlay");
+        rectStart = new Rectangle(256, 232, texStart.getRegionWidth(), texStart.getRegionHeight());
+        rectExit = new Rectangle(1280 - 512, 232, texExit.getRegionWidth(), texExit.getRegionHeight());
+        gameOverRectStart = new Rectangle(256, 82, texStart.getRegionWidth(), texStart.getRegionHeight());
+        gameOverRectExit = new Rectangle(1280 - 512, 82, texExit.getRegionWidth(), texExit.getRegionHeight());
+        gameOverTexture = atlas.findRegion("gameOver");
+        mip = (MyInputProcessor) Gdx.input.getInputProcessor();
+        scoreHelper = new StringBuilder(50);
+        music = Assets.getInstance().assetManager.get("menu_music.mp3", Music.class);
+        music.setPosition(7.0f);
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
