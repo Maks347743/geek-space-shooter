@@ -6,10 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-/**
- * Created by FlameXander on 20.09.2017.
- */
-
 public class Background {
     private class Star {
         private Vector2 position;
@@ -65,8 +61,4 @@ public class Background {
             o.update(dt, v);
         }
     }
-
-    // public void dispose() {
-        // texture.dispose();
-    // }
 }

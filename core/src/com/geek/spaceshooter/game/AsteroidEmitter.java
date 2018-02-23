@@ -4,10 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 
-/**
- * Created by FlameXander on 27.09.2017.
- */
-
 public class AsteroidEmitter extends ObjectPool<Asteroid> {
     private GameScreen gameScreen;
     private TextureRegion asteroidTexture;

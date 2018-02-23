@@ -1,13 +1,8 @@
 package com.geek.spaceshooter.game;
 
 import com.badlogic.gdx.math.Vector2;
-
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by FlameXander on 07.10.2017.
- */
 
 public class Route {
     private List<Vector2> velocityList;

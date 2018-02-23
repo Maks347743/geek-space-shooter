@@ -5,10 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-/**
- * Created by FlameXander on 04.10.2017.
- */
-
 public class BoomEmitter {
     private Boom[] booms;
     private Sound boomSound;
@@ -52,9 +48,5 @@ public class BoomEmitter {
                 break;
             }
         }
-    }
-
-    public void dispose() {
-        boomSound.dispose();
     }
 }

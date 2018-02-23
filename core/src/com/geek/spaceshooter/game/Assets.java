@@ -7,10 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-/**
- * Created by FlameXander on 07.10.2017.
- */
-
 public class Assets {
     private static final Assets ourInstance = new Assets();
 

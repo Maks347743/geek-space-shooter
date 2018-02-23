@@ -1,15 +1,10 @@
 package com.geek.spaceshooter.game;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-
-/**
- * Created by FlameXander on 16.09.2017.
- */
 
 public class Asteroid extends SpaceObject implements Poolable {
     private float scale;

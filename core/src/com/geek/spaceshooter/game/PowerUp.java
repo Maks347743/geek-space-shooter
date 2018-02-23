@@ -3,10 +3,6 @@ package com.geek.spaceshooter.game;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-/**
- * Created by FlameXander on 27.09.2017.
- */
-
 public class PowerUp {
     enum Type {
         MONEY10(0), MONEY25(1), MONEY50(2), MEDKIT(3);
@@ -46,7 +42,7 @@ public class PowerUp {
         this.velocity = new Vector2(0, 0);
         this.active = false;
         this.time = 0.0f;
-        this.maxTime = 3.0f;
+        this.maxTime = 4.0f;
     }
 
     public void update(float dt) {
@@ -62,7 +58,7 @@ public class PowerUp {
         this.velocity.set(MathUtils.random(-50.0f, 50.0f), MathUtils.random(-50.0f, 50.0f));
         this.type = type;
         this.time = 0.0f;
-        this.maxTime = 3.0f;
+        this.maxTime = 4.0f;
         this.active = true;
     }
 
@@ -70,19 +66,19 @@ public class PowerUp {
         this.active = false;
     }
 
-    public void use(Player hero) {
+    public void use(Player player) {
         switch (type) {
             case MONEY10:
-                hero.addMoney(10);
+                player.addMoney(10);
                 break;
             case MONEY25:
-                hero.addMoney(25);
+                player.addMoney(25);
                 break;
             case MONEY50:
-                hero.addMoney(50);
+                player.addMoney(50);
                 break;
             case MEDKIT:
-                hero.fullRepair();
+                player.fullRepair();
                 break;
         }
     }

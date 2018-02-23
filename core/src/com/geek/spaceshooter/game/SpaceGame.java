@@ -8,14 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-// Таблица результатов во внешнем файле
-// + AssetManager
-// + Bots Routes + AI
-// Save Game
-//
-// WeaponsShop
-// PowerUps
-
 public class SpaceGame extends Game {
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = 720;
@@ -52,7 +44,6 @@ public class SpaceGame extends Game {
         batch = new SpriteBatch();
         camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
         viewport = new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT, camera);
-        viewport.update(SCREEN_WIDTH, SCREEN_HEIGHT, true);
         viewport.apply();
         MyInputProcessor mip = new MyInputProcessor(this);
         Gdx.input.setInputProcessor(mip);

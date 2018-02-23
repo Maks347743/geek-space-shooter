@@ -1,13 +1,7 @@
 package com.geek.spaceshooter.game;
 
-import com.badlogic.gdx.utils.Pool;
-
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by FlameXander on 23.09.2017.
- */
 
 public abstract class ObjectPool<T extends Poolable> {
     protected List<T> activeList;
